@@ -18,13 +18,14 @@ public class Expression
 	*/
 	public Expression(String infix)
 	{
-		String formatted = new StringBuilder(infix).append("#").toString();
+		String formatted = new StringBuilder(infix).append(" #").toString();
 		Scanner s = new Scanner(formatted);
 		//System.out.println("node 7" + " " + formatted + " " + s.nextInt());
 		ArrayDeque<Long> nums = new ArrayDeque<Long>();
 		ArrayDeque<Character> operator = new ArrayDeque<Character>();
 		String pattern = "\\W";
 		operator.push('$');
+		//System.out.println("node 8");
 		char nextOperator;
 		char topOperator;
 		long theNum;
@@ -67,7 +68,7 @@ public class Expression
 							break;
 					}
 					operator.pop();
-					if(!s.hasNext())
+					if(operator.isEmpty())
 						break;
 				}
 				operator.push(nextOperator);
@@ -225,6 +226,8 @@ public class Expression
 			return a*a;
 		if(x==3)
 			return a*a*a;
+		if(x<0)
+			return 1/a;
 		long pwr;
 		if((x&1L)==0L)
 		{
@@ -238,7 +241,7 @@ public class Expression
 	}
 	/**
 	*非负整数阶乘.
-	*<p>负整数会陷入死循环</p>
+	*<p>负整数会返回错误结果1。</p>
 	*@param n operand
 	*@return n!
 	*/
