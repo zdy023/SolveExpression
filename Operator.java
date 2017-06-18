@@ -6,7 +6,7 @@ public abstract class Operator implements ExpressionItem
 {
 	private final String operator;
 	private final int inStackPriority,outStackPriority; //the priority is larger than or equals 0 and less than 64
-	private final int operandCount; //1 - one operand,0 - two operands
+	private final int operandCount; //should be 0,1 or 2
 	private boolean behindOrNot;
 	private ArrayDeque<Double> stack;
 	private int hash;
@@ -15,7 +15,7 @@ public abstract class Operator implements ExpressionItem
 		this.operator = operator;
 		this.inStackPriority = inStackPriority;
 		this.outStackPriority = outStackPriority;
-		this.operandCount = operandCount&1;
+		this.operandCount = operandCount%3;
 		this.behindOrNot = true;
 		this.stack = null;
 		this.getHash();
@@ -40,7 +40,7 @@ public abstract class Operator implements ExpressionItem
 	{
 		return this.operator;
 	}
-	//the lower two bytes are fot the operator character,then the lower six bits of the higher two bytes are for the inStackPriority and outStackPriority,the seventh bit of the higher two bytes are for the operandCount and the flag of behindOrNot
+	//the lower two bytes are fot the operator character,then the lower six bits of the higher two bytes are for the inStackPriority and outStackPriority,the higher two bits of the second highest byte are for the operandCount and the seventh bit of the highest byte is for the flag of behindOrNot
 	private final void getHash()
 	{
 		int hash = operator.hashCode()&0x0000ffff;
