@@ -2,5 +2,5 @@
 package xyz.davidChangx.algorithms.math;
 public interface ExpressionItem
 {
-	public void execute();
+	public void execute(double x);
 }

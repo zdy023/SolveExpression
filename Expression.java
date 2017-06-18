@@ -1,51 +1,62 @@
-package alls.algorithms.math;
+package xyz.davidChangx.algorithms.math;
 import java.util.ArrayDeque;
 import java.util.Scanner;
+import xyz.davidChangx.algorithms.Function;
+import java.util.HashMap;
+import xyz.davidChangx.algorithms.math.operator.Operator;
+import xyz.davidChangx.algorithms.math.Operand;
+import xyz.davidChangx.algorithms.math.Unknown;
+import xyz.davidChangx.algorithms.math.ExpressionItem;
+import java.util.regex.Pattern;
+import java.util.ArrayList;
 /**
 *<h1>class Expression 表达式类</h1>
 *用于存储一个后缀表达式，提供了由中缀表达式构造后缀表达式的方法及求值的方法.
 *@author David Chang
-*@version v1.1
+*@version v1.2
 */
-public class Expression
+public class Expression implements Function
 {
-	private String sufix;
-	private long value;
+	private String strSufix;
+	private ArrayList<ExpressionItem> sufix;
+	private double value;
+	private char x;
+	private HashMap<Character,Operator> operatorMap;
+	private ArrayDeque<Double> opdStack;
 	/**
 	*构造方法.
 	*<p>由一个中缀表达式构造后缀表达式。</p>
 	*@param infix infix expression
 	*/
-	public Expression(String infix)
+	public Expression(String infix,HashMap<String,Operator> operatorMap,char x)
 	{
-		String formatted = new StringBuilder(infix).append(" #").toString();
-		Scanner s = new Scanner(formatted);
-		//System.out.println("node 7" + " " + formatted + " " + s.nextInt());
-		ArrayDeque<Long> nums = new ArrayDeque<Long>();
-		ArrayDeque<Character> operator = new ArrayDeque<Character>();
-		String pattern = "\\W";
-		operator.push('$');
-		//System.out.println("node 8");
-		char nextOperator;
-		char topOperator;
-		long theNum;
-		StringBuilder sufix = new StringBuilder();
-		//System.out.println("node 5");
+		this.operatorMap = operatorMap;
+		this.x = x;
+		this.opdStack = new ArrayDeque<Double>();
+		
+		Scanner s = new Scanner(infix + " #"); //In operatorMap there must be the infomation about '$'(head mark) and '#'(ending mark)
+		ArrayDeque<Operator> stack = new ArrayDeque<Operator>();
+		Pattern opPat = Pattern.compile("\\W"),unknownPat = Pattern.compile(String.valueOf(x));
+		Operator nextOperator,topOperator;
+		stack.push(operatorMap.get("$"));
+		double theNum;
+		StringBuilder strSufix = new StringBuilder();
+		sufix = new ArrayList<ExpressionItem>();
 		for(;s.hasNext();)
 		{
-			if(s.hasNextLong())
+			if(s.hasNextDouble())
 			{
-				theNum = s.nextLong();
-				nums.push(theNum);
-				sufix.append(theNum + " ");
-				//System.out.println("node 4");
+				theNum = s.nextDouble();
+				strSufix.append(theNum + " ");
+				sufix.add(new Operand(theNum,opdStack));
+			}
+			else if(s.hasNext(unknownPat))
+			{
 			}
 			else if(s.hasNext(pattern))
 			{
-				//System.out.println("node 3");
 				nextOperator = s.next(pattern).charAt(0);
 				topOperator = operator.peek();
-				//System.out.println("node 2");
 				for(int priority = this.getInStackPriority(nextOperator);this.getOutStackPriority(topOperator)>=priority;topOperator = operator.peek())
 				{
 					long c,a,b;
