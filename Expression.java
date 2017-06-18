@@ -34,6 +34,7 @@ public class Expression implements Function
 		this.operatorMap = operatorMap;
 		this.x = x;
 		this.opdStack = new ArrayDeque<Double>();
+		operatorMap.forEach((String oprName,Operator oprtr)->oprtr.setStack(opdStack));
 		
 		Scanner s = new Scanner(infix + " #"); //In operatorMap there must be the infomation about '$'(head mark) and '#'(ending mark)
 		ArrayDeque<Operator> stack = new ArrayDeque<Operator>();
@@ -70,8 +71,11 @@ public class Expression implements Function
 					strSufix.append(topOperator.getChar() + " ");
 					sufix.add(topOperator);
 					stack.pop();
+					if(topOperator.needsClosed())
+						break;
 				}
-				stack.push(nextOperator);
+				if(!nextOperator.isClosing())
+					stack.push(nextOperator);
 			}
 			else ;
 		}
