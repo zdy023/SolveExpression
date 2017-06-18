@@ -36,6 +36,10 @@ public abstract class Operator implements ExpressionItem
 		this(operator,inStackPriority,outStackPriority,behindOrNot);
 		this.stack = stack;
 	}
+	public String getChar()
+	{
+		return this.operator;
+	}
 	//the lower two bytes are fot the operator character,then the lower six bits of the higher two bytes are for the inStackPriority and outStackPriority,the seventh bit of the higher two bytes are for the operandCount and the flag of behindOrNot
 	private final void getHash()
 	{
