@@ -40,6 +40,10 @@ public abstract class Operator implements ExpressionItem
 	{
 		return this.operator;
 	}
+	public int getOperandCount()
+	{
+		return this.operandCount;
+	}
 	//the lower two bytes are fot the operator character,then the lower six bits of the higher two bytes are for the inStackPriority and outStackPriority,the higher two bits of the second highest byte are for the operandCount and the seventh bit of the highest byte is for the flag of behindOrNot
 	private final void getHash()
 	{
