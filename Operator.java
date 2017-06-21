@@ -74,7 +74,7 @@ public abstract class Operator implements ExpressionItem
 			case 2:
 				a = stack.pop();
 				b = stack.pop();
-				stack.push(this.solve(a,b));
+				stack.push(this.solve(b,a));
 				break;
 			case 0:
 			default:
