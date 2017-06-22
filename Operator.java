@@ -6,7 +6,7 @@ import xyz.davidChangx.algorithms.math.operator.OperatorGroupMode;
 public abstract class Operator implements ExpressionItem
 {
 	private final String operator;
-	private final int inStackPriority,outStackPriority; //the priority is larger than or equals 0 and less than 64
+	private final int inStackPriority,outStackPriority; //the priority is larger than or equals 0 and less than 16
 	private ArrayDeque<Double> stack;
 	private final int hash;
 	private final OperatorGroupMode groupMode;
@@ -26,14 +26,14 @@ public abstract class Operator implements ExpressionItem
 	{
 		return this.operator;
 	}
-	//the lower two bytes are for the operator character,then the lower six bits of the higher two bytes are for the inStackPriority and outStackPriority,the higher two bits of the highest two bytes are for the count of the operand and the group mode
+	//the lower two bytes are for the operator character,then the lower four bits of the higher two bytes are for the inStackPriority and outStackPriority,the higher four bits of the highest two bytes are for the count of the operand and the group mode
 	private final void getHash()
 	{
 		int hash = operator.hashCode()&0x0000ffff;
 		hash += inStackPriority<<16;
 		hash += outStackPriority<<24;
-		hash += operandCount<<22;
-		hash += groupMode.ordinal()<<30;
+		hash += operandCount<<20;
+		hash += groupMode.ordinal()<<28;
 		this.hash = hash;
 	}
 	public final void setStack(ArrayDeque<Double> stack)
@@ -60,25 +60,15 @@ public abstract class Operator implements ExpressionItem
 	{
 		return this.groupMode==OperatorGroupMode.CLOSING_ONE;
 	}
-	public abstract double solve(double x,double y);
-	public abstract double solve(double x);
+	public abstract double solve(double[] x);
 	public final void execute(double x)
 	{
-		double a,b;
-		switch(operandCount)
+		double[] x = new double[operandCount];
+		for(int i = operandCount-1;i>=0;i--)
 		{
-			case 1:
-				a = stack.pop();
-				stack.push(this.solve(a));
-				break;
-			case 2:
-				a = stack.pop();
-				b = stack.pop();
-				stack.push(this.solve(b,a));
-				break;
-			case 0:
-			default:
+			x[i] = stack.pop();
 		}
+		stack.push(this.solve(x));
 	}
 	public final String toString()
 	{

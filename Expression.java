@@ -9,13 +9,14 @@ import xyz.davidChangx.algorithms.math.Unknown;
 import xyz.davidChangx.algorithms.math.ExpressionItem;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
+import xyz.davidChangx.algorithms.math.operator.OperatorGroupMode;
 /**
 *<h1>class Expression 表达式类</h1>
 *用于存储一个后缀表达式，提供了由中缀表达式构造后缀表达式的方法及求值的方法.
 *@author David Chang
 *@version v1.2
 */
-public class Expression implements Function
+public class Expression extends Operator implements Function
 {
 	private String strSufix;
 	private ArrayList<ExpressionItem> sufix;
@@ -31,6 +32,16 @@ public class Expression implements Function
 	*/
 	public Expression(String infix,HashMap<String,Operator> operatorMap,char x)
 	{
+		this("f",15,1,infix,operatorMap,x);
+	}
+	public Expression(String infix,HashMap<String,Operator> operatorMap)
+	{
+		this(infix,operatorMap,'\0');
+	}
+	public Expression(String functionName,int inStackPriority,int outStackPriority,String infix,HashMap<String,Operator> operatorMap,char x)
+	{
+		super(functionName,inStackPriority,outStackPriority,1,OperatorGroupMode.NEEDING_CLOSED);
+		
 		this.operatorMap = operatorMap;
 		this.x = x;
 		this.opdStack = new ArrayDeque<Double>();
@@ -84,63 +95,24 @@ public class Expression implements Function
 		newestOrNot = false;
 		setOrNot = false;
 	}
-	public Expression(String infix,HashMap<String,Operator> operatorMap)
-	{
-		this.operatorMap = operatorMap;
-		this.opdStack = new ArrayDeque<Double>();
-		
-		Scanner s = new Scanner(infix + " #"); //In operatorMap there must be the infomation about '$'(head mark) and '#'(ending mark)
-		ArrayDeque<Operator> stack = new ArrayDeque<Operator>();
-		Pattern opPat = Pattern.compile(x + "?[a-z]+\\W+");
-		Operator nextOperator,topOperator;
-		String nxtOpt;
-		stack.push(operatorMap.get("$"));
-		double theNum;
-		StringBuilder strSufix = new StringBuilder();
-		sufix = new ArrayList<ExpressionItem>();
-		for(;s.hasNext();)
-		{
-			if(s.hasNextDouble())
-			{
-				theNum = s.nextDouble();
-				strSufix.append(theNum + " ");
-				sufix.add(new Operand(theNum,opdStack));
-			}
-			else if(s.hasNext(opPat))
-			{
-				nxtOpt = s.next(opPat);
-				nextOperator = operatorMap.get(nxtOpt);
-				topOperator = stack.peek();
-				for(int priority = nextOperator.getInStackPriority();topOperator.getOutStackPriority()>=priority;topOperator = stack.peek())
-				{
-					if((nxtOpt.equals("#")&&(stack.size()==1))
-						break;
-					strSufix.append(topOperator.getChar() + " ");
-					sufix.add(topOperator);
-					stack.pop();
-				}
-				stack.push(nextOperator);
-			}
-			else ;
-		}
-		this.sufix = sufix.substring(0,sufix.length()-1);
-		
-		newestOrNot = false;
-		setOrNot = false;
-	}
 	public void solve(double k)
 	{
-		opdStack.clear();
-		Iterator it = sufix.iterator();
-		for(;it.hasNext();)
-			it.next().execute(k);
-		value = opdStack.pop();
+		double[] x = {k};
+		value = this.solve(x);
 		setOrNot = true;
 		newestOrNot = true;
 	}
 	public void solve()
 	{
 		this.solve(0)
+	}
+	public double solve(double[] x)
+	{
+		opdStack.clear();
+		Iterator it = sufix.iterator();
+		for(;it.hasNext();)
+			it.next().execute(x[0]);
+		return opdStack.pop();
 	}
 	public double f(double x)
 	{
