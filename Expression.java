@@ -38,7 +38,7 @@ public class Expression implements Function
 		
 		Scanner s = new Scanner(infix + " #"); //In operatorMap there must be the infomation about '$'(head mark) and '#'(ending mark)
 		ArrayDeque<Operator> stack = new ArrayDeque<Operator>();
-		Pattern opPat = Pattern.compile("\\W"),unknownPat = Pattern.compile(String.valueOf(x));
+		Pattern opPat = Pattern.compile(x + "?[a-z]+\\W+"),unknownPat = Pattern.compile(String.valueOf(x));
 		Operator nextOperator,topOperator;
 		String nxtOpt;
 		stack.push(operatorMap.get("$"));
@@ -91,7 +91,7 @@ public class Expression implements Function
 		
 		Scanner s = new Scanner(infix + " #"); //In operatorMap there must be the infomation about '$'(head mark) and '#'(ending mark)
 		ArrayDeque<Operator> stack = new ArrayDeque<Operator>();
-		Pattern opPat = Pattern.compile("\\W");
+		Pattern opPat = Pattern.compile(x + "?[a-z]+\\W+");
 		Operator nextOperator,topOperator;
 		String nxtOpt;
 		stack.push(operatorMap.get("$"));
