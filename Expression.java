@@ -40,7 +40,7 @@ public class Expression extends Operator implements Function
 	}
 	public Expression(String functionName,int inStackPriority,int outStackPriority,String infix,HashMap<String,Operator> operatorMap,char x)
 	{
-		super(functionName,inStackPriority,outStackPriority,1,OperatorGroupMode.NEEDING_CLOSED);
+		super(functionName + "(",inStackPriority,outStackPriority,1,OperatorGroupMode.NEEDING_CLOSED);
 		
 		this.operatorMap = operatorMap;
 		this.x = x;
