@@ -6,10 +6,10 @@ public class Multiply extends Operator
 {
 	public Multiply()
 	{
-		super("*",7,7,2,OperatorGroupMode.SINGLE);
+		super("*",8,8,2,OperatorGroupMode.SINGLE);
 	}
-	public double solve(double x,double y)
+	public double solve(double[] x)
 	{
-		return x*y;
+		return x[0]*x[1];
 	}
 }

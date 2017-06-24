@@ -8,8 +8,8 @@ public class Plus extends Operator
 	{
 		super("+",5,5,2,OperatorGroupMode.SINGLE);
 	}
-	public double solve(double x,double y)
+	public double solve(double[] x)
 	{
-		return x+y;
+		return x[0]+x[1];
 	}
 }

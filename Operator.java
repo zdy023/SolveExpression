@@ -63,6 +63,8 @@ public abstract class Operator implements ExpressionItem
 	public abstract double solve(double[] x);
 	public final void execute(double x)
 	{
+		if(operandCount==0)
+			return;
 		double[] x = new double[operandCount];
 		for(int i = operandCount-1;i>=0;i--)
 		{

@@ -1,15 +1,15 @@
-//Minus.java
+//LeftBracket.java
 package xyz.davidChangx.algorithms.math.operator;
 import xyz.davidChangx.algorithms.math.operator.Operator;
 import xyz.davidChangx.algorithms.math.operator.OperatorGroupMode;
-public class Minus extends Operator
+public class LeftBracket extends Operator
 {
-	public Minus()
+	public LeftBracket()
 	{
-		super("-",5,5,2,OperatorGroupMode.SINGLE);
+		super("(",15,1,0,OperatorGroupMode.NEEDING_CLOSED);
 	}
 	public double solve(double[] x)
 	{
-		return x[0]-x[1];
+		return 0.;
 	}
 }

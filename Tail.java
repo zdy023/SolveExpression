@@ -1,15 +1,15 @@
-//Minus.java
+//Tail.java
 package xyz.davidChangx.algorithms.math.operator;
 import xyz.davidChangx.algorithms.math.operator.Operator;
 import xyz.davidChangx.algorithms.math.operator.OperatorGroupMode;
-public class Minus extends Operator
+public class Tail extends Operator
 {
-	public Minus()
+	public Tail()
 	{
-		super("-",5,5,2,OperatorGroupMode.SINGLE);
+		super("#",0,0,0,OperatorGroupMode.SINGLE);
 	}
 	public double solve(double[] x)
 	{
-		return x[0]-x[1];
+		return 0.;
 	}
 }
