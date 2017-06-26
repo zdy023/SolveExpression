@@ -5,13 +5,13 @@ import java.util.ArrayDeque;
 import xyz.davidChangx.algorithms.math.operator.OperatorGroupMode;
 public abstract class Operator implements ExpressionItem
 {
-	private final String operator;
-	private final int inStackPriority,outStackPriority; //the priority is larger than or equals 0 and less than 16
-	private ArrayDeque<Double> stack;
-	private final int hash;
-	private final OperatorGroupMode groupMode;
-	private final int operandCount;
-	private final Operator(String operator,int inStackPriority,int outStackPriority,int operandCount,OperatorGroupMode groupMode)
+	protected final String operator;
+	protected final int inStackPriority,outStackPriority; //the priority is larger than or equals 0 and less than 16
+	protected ArrayDeque<Double> stack;
+	protected final int hash;
+	protected final OperatorGroupMode groupMode;
+	protected final int operandCount;
+	protected Operator(String operator,int inStackPriority,int outStackPriority,int operandCount,OperatorGroupMode groupMode)
 	{
 		this.operator = operator;
 		this.inStackPriority = inStackPriority;
@@ -19,22 +19,18 @@ public abstract class Operator implements ExpressionItem
 		this.operandCount = operandCount%3;
 		this.groupMode = groupMode;
 		this.stack = null;
-		this.getHash();
-	}
-	public abstract Operator();
-	public String getChar()
-	{
-		return this.operator;
-	}
-	//the lower two bytes are for the operator character,then the lower four bits of the higher two bytes are for the inStackPriority and outStackPriority,the higher four bits of the highest two bytes are for the count of the operand and the group mode
-	private final void getHash()
-	{
+		
+		//the lower two bytes are for the operator character,then the lower four bits of the higher two bytes are for the inStackPriority and outStackPriority,the higher four bits of the highest two bytes are for the count of the operand and the group mode
 		int hash = operator.hashCode()&0x0000ffff;
 		hash += inStackPriority<<16;
 		hash += outStackPriority<<24;
 		hash += operandCount<<20;
 		hash += groupMode.ordinal()<<28;
 		this.hash = hash;
+	}
+	public String getChar()
+	{
+		return this.operator;
 	}
 	public final void setStack(ArrayDeque<Double> stack)
 	{
@@ -65,12 +61,12 @@ public abstract class Operator implements ExpressionItem
 	{
 		if(operandCount==0)
 			return;
-		double[] x = new double[operandCount];
+		double[] y = new double[operandCount];
 		for(int i = operandCount-1;i>=0;i--)
 		{
-			x[i] = stack.pop();
+			y[i] = stack.pop();
 		}
-		stack.push(this.solve(x));
+		stack.push(this.solve(y));
 	}
 	public final String toString()
 	{

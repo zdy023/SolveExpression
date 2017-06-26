@@ -2,7 +2,7 @@
 package xyz.davidChangx.algorithms.math;
 import xyz.davidChangx.algorithms.math.ExpressionItem;
 import java.util.ArrayDeque;
-public Operand implements ExpressionItem,Comparable<Operand>
+public class Operand implements ExpressionItem,Comparable<Operand>
 {
 	private double value;
 	private ArrayDeque<Double> stack;
@@ -37,7 +37,8 @@ public Operand implements ExpressionItem,Comparable<Operand>
 	}
 	public int compareTo(Operand x)
 	{
-		return value-x;
+		double diff = value-x.getValue();
+		return diff>0.?1:(diff<0.?-1:0);
 	}
 	public boolean equals(Object x)
 	{

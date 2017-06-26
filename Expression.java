@@ -10,6 +10,7 @@ import xyz.davidChangx.algorithms.math.ExpressionItem;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
 import xyz.davidChangx.algorithms.math.operator.OperatorGroupMode;
+import java.util.ListIterator;
 /**
 *<h1>class Expression 表达式类</h1>
 *用于存储一个后缀表达式，提供了由中缀表达式构造后缀表达式的方法及求值的方法.
@@ -22,7 +23,7 @@ public class Expression extends Operator implements Function
 	private ArrayList<ExpressionItem> sufix;
 	private double value;
 	private char x;
-	private HashMap<Character,Operator> operatorMap;
+	private HashMap<String,Operator> operatorMap;
 	private ArrayDeque<Double> opdStack;
 	private boolean newestOrNot,setOrNot;
 	/**
@@ -77,7 +78,7 @@ public class Expression extends Operator implements Function
 				topOperator = stack.peek();
 				for(int priority = nextOperator.getInStackPriority();topOperator.getOutStackPriority()>=priority;topOperator = stack.peek())
 				{
-					if((nxtOpt.equals("#")&&(stack.size()==1))
+					if(nxtOpt.equals("#")&&(stack.size()==1))
 						break;
 					strSufix.append(topOperator.getChar() + " ");
 					sufix.add(topOperator);
@@ -90,7 +91,7 @@ public class Expression extends Operator implements Function
 			}
 			else ;
 		}
-		this.sufix = sufix.substring(0,sufix.length()-1);
+		this.strSufix = strSufix.substring(0,strSufix.length()-1);
 		
 		newestOrNot = false;
 		setOrNot = false;
@@ -104,12 +105,12 @@ public class Expression extends Operator implements Function
 	}
 	public void solve()
 	{
-		this.solve(0)
+		this.solve(0);
 	}
 	public double solve(double[] x)
 	{
 		opdStack.clear();
-		Iterator it = sufix.iterator();
+		ListIterator<ExpressionItem> it = sufix.listIterator();
 		for(;it.hasNext();)
 			it.next().execute(x[0]);
 		return opdStack.pop();
@@ -141,15 +142,5 @@ public class Expression extends Operator implements Function
 	public String getSufix()
 	{
 		return this.strSufix;
-	}
-	public String toString()
-	{
-		return this.strSufix;
-	}
-	public static void main(String[] args)
-	{
-		Expression ex = new Expression(args[0]);
-		System.out.println(ex.getSufix());
-		System.out.println(ex.getValue());
 	}
 }
