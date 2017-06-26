@@ -12,4 +12,8 @@ public class ArcTangent extends Operator
 	{
 		return Math.atan(x[0]);
 	}
+	public Object clone()
+	{
+		return new ArcTangent();
+	}
 }

@@ -12,4 +12,8 @@ public class ArcSine extends Operator
 	{
 		return Math.asin(x[0]);
 	}
+	public Object clone()
+	{
+		return new ArcSine();
+	}
 }

@@ -12,4 +12,8 @@ public class HyperbolicSine extends Operator
 	{
 		return Math.sinh(x[0]);
 	}
+	public Object clone()
+	{
+		return new HyperbolicSine();
+	}
 }

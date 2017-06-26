@@ -12,4 +12,8 @@ public class Sine extends Operator
 	{
 		return Math.sin(x[0]);
 	}
+	public Object clone()
+	{
+		return new Sine();
+	}
 }

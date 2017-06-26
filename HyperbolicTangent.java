@@ -12,4 +12,8 @@ public class HyperbolicTangent extends Operator
 	{
 		return Math.tanh(x[0]);
 	}
+	public Object clone()
+	{
+		return new HyperbolicTangent();
+	}
 }

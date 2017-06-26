@@ -12,4 +12,8 @@ public class Tangent extends Operator
 	{
 		return Math.tan(x[0]);
 	}
+	public Object clone()
+	{
+		return new Tangent();
+	}
 }

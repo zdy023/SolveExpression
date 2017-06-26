@@ -12,4 +12,8 @@ public class Multiply extends Operator
 	{
 		return x[0]*x[1];
 	}
+	public Object clone()
+	{
+		return new Multiply();
+	}
 }

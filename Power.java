@@ -12,4 +12,8 @@ public class Power extends Operator
 	{
 		return Math.pow(x[0],x[1]);
 	}
+	public Object clone()
+	{
+		return new Power();
+	}
 }

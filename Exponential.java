@@ -12,4 +12,8 @@ public class Exponential extends Operator
 	{
 		return Math.exp(x[0]);
 	}
+	public Object clone()
+	{
+		return new Exponential();
+	}
 }

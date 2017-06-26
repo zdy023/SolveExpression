@@ -11,6 +11,9 @@ import java.util.regex.Pattern;
 import java.util.ArrayList;
 import xyz.davidChangx.algorithms.math.operator.OperatorGroupMode;
 import java.util.ListIterator;
+import java.util.Set;
+import java.util.Iterator;
+import java.util.Map;
 /**
 *<h1>class Expression 表达式类</h1>
 *用于存储一个后缀表达式，提供了由中缀表达式构造后缀表达式的方法及求值的方法.
@@ -19,7 +22,7 @@ import java.util.ListIterator;
 */
 public class Expression extends Operator implements Function
 {
-	private String strSufix;
+	private String strSufix,infix;
 	private ArrayList<ExpressionItem> sufix;
 	private double value;
 	private char x;
@@ -43,27 +46,31 @@ public class Expression extends Operator implements Function
 	{
 		super(functionName + "(",inStackPriority,outStackPriority,1,OperatorGroupMode.NEEDING_CLOSED);
 		
-		this.operatorMap = operatorMap;
+		this.infix = infix;
 		this.x = x;
+		this.operatorMap = this.cloneMap(operatorMap);
 		this.opdStack = new ArrayDeque<Double>();
-		operatorMap.forEach((String oprName,Operator oprtr)->oprtr.setStack(opdStack));
+		this.operatorMap.forEach((String oprName,Operator oprtr)->oprtr.setStack(opdStack));
 		
 		Scanner s = new Scanner(infix + " #"); //In operatorMap there must be the infomation about '$'(head mark) and '#'(ending mark)
 		ArrayDeque<Operator> stack = new ArrayDeque<Operator>();
-		Pattern opPat = Pattern.compile(x + "?[a-z]+\\W+"),unknownPat = Pattern.compile(String.valueOf(x));
+		Pattern opPat = Pattern.compile("(?:" + x + "?[a-z]+)*\\W+"),unknownPat = Pattern.compile(String.valueOf(x));
 		Operator nextOperator,topOperator;
 		String nxtOpt;
 		stack.push(operatorMap.get("$"));
 		double theNum;
 		StringBuilder strSufix = new StringBuilder();
 		sufix = new ArrayList<ExpressionItem>();
+		//System.out.println("node 8");
 		for(;s.hasNext();)
 		{
+			//System.out.println("node 14");
 			if(s.hasNextDouble())
 			{
 				theNum = s.nextDouble();
 				strSufix.append(theNum + " ");
 				sufix.add(new Operand(theNum,opdStack));
+				//System.out.println("node 9: " + theNum);
 			}
 			else if(s.hasNext(unknownPat))
 			{
@@ -73,14 +80,18 @@ public class Expression extends Operator implements Function
 			}
 			else if(s.hasNext(opPat))
 			{
+				//System.out.println("node 11");
 				nxtOpt = s.next(opPat);
+				//System.out.println("node 12");
 				nextOperator = operatorMap.get(nxtOpt);
+				//System.out.println("node 13");
 				topOperator = stack.peek();
-				for(int priority = nextOperator.getInStackPriority();topOperator.getOutStackPriority()>=priority;topOperator = stack.peek())
+				//System.out.println("node 10: " + nxtOpt + " " + topOperator);
+				for(int priority = nextOperator.getInStackPriority();topOperator.getOutStackPriority()>priority;topOperator = stack.peek())
 				{
 					if(nxtOpt.equals("#")&&(stack.size()==1))
 						break;
-					strSufix.append(topOperator.getChar() + " ");
+					strSufix.append(topOperator + " ");
 					sufix.add(topOperator);
 					stack.pop();
 					if(topOperator.needsClosed())
@@ -95,6 +106,22 @@ public class Expression extends Operator implements Function
 		
 		newestOrNot = false;
 		setOrNot = false;
+	}
+	private HashMap<String,Operator> cloneMap(HashMap<String,Operator> map)
+	{
+		HashMap<String,Operator> newMap = new HashMap<String,Operator>();
+		Set<Map.Entry<String,Operator>> set = map.entrySet();
+		Iterator<Map.Entry<String,Operator>> it = set.iterator();
+		for(;it.hasNext();)
+		{
+			Map.Entry<String,Operator> ele = it.next();
+			newMap.put(ele.getKey(),(Operator)ele.getValue().clone());
+		}
+		return newMap;
+	}
+	public Object clone()
+	{
+		return new Expression(this.operator,this.inStackPriority,this.outStackPriority,this.infix,this.operatorMap,this.x);
 	}
 	public void solve(double k)
 	{
@@ -142,5 +169,13 @@ public class Expression extends Operator implements Function
 	public String getSufix()
 	{
 		return this.strSufix;
+	}
+	protected ArrayList<ExpressionItem> getArraySufix()
+	{
+		return this.sufix;
+	}
+	public HashMap<String,Operator> getOperators()
+	{
+		return this.operatorMap;
 	}
 }

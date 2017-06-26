@@ -3,7 +3,7 @@ package xyz.davidChangx.algorithms.math.operator;
 import xyz.davidChangx.algorithms.math.ExpressionItem;
 import java.util.ArrayDeque;
 import xyz.davidChangx.algorithms.math.operator.OperatorGroupMode;
-public abstract class Operator implements ExpressionItem
+public abstract class Operator implements ExpressionItem,Cloneable
 {
 	protected final String operator;
 	protected final int inStackPriority,outStackPriority; //the priority is larger than or equals 0 and less than 16
@@ -28,10 +28,7 @@ public abstract class Operator implements ExpressionItem
 		hash += groupMode.ordinal()<<28;
 		this.hash = hash;
 	}
-	public String getChar()
-	{
-		return this.operator;
-	}
+	public abstract Object clone();
 	public final void setStack(ArrayDeque<Double> stack)
 	{
 		this.stack = stack;
@@ -65,8 +62,10 @@ public abstract class Operator implements ExpressionItem
 		for(int i = operandCount-1;i>=0;i--)
 		{
 			y[i] = stack.pop();
+			System.out.println("node 16: " + this.operator + " " + y[i]);
 		}
 		stack.push(this.solve(y));
+		System.out.println("node 17: " + this.operator + " " + stack.peek());
 	}
 	public final String toString()
 	{

@@ -12,4 +12,8 @@ public class Cosine extends Operator
 	{
 		return Math.cos(x[0]);
 	}
+	public Object clone()
+	{
+		return new Cosine();
+	}
 }

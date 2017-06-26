@@ -12,4 +12,8 @@ public class RightBracket extends Operator
 	{
 		return 0.;
 	}
+	public Object clone()
+	{
+		return new RightBracket();
+	}
 }

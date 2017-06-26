@@ -12,4 +12,8 @@ public class HyperbolicCosine extends Operator
 	{
 		return Math.cosh(x[0]);
 	}
+	public Object clone()
+	{
+		return new HyperbolicCosine();
+	}
 }

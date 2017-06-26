@@ -12,4 +12,8 @@ public class Ln extends Operator
 	{
 		return Math.log(x[0]);
 	}
+	public Object clone()
+	{
+		return new Ln();
+	}
 }

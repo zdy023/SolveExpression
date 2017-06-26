@@ -12,4 +12,8 @@ public class Module extends Operator
 	{
 		return x[0]-x[1]*Math.floor(x[0]/x[1]);
 	}
+	public Object clone()
+	{
+		return new Module();
+	}
 }
