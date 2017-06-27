@@ -74,13 +74,13 @@ public class Test
 		//System.out.println("node 7");
 		Expression e2 = new Expression("x ^ 3 + ( 2 * x ) ^ 2 - e^( x )",optMap,'x');
 		//System.out.println("node 5");
-		System.out.println("node 15: " + e1.getSufix());
+		//System.out.println("node 15: " + e1.getSufix());
 		e1.solve();
 		//System.out.println("node 4");
 		System.out.println(e1.getValue());
 		System.out.println(e2.f(0));
 		System.out.println(e2.f(5));
-		Expression e3 = new Expression("fgo",15,1,"e^( x ) * sin( 5 * x ) - arccos( 3. )",optMap,'x');
+		Expression e3 = new Expression("fgo",15,1,"e^( x ) * sin( 5 * x ) - arccos( 0.3 )",optMap,'x');
 		optMap.put("fgo(",e3);
 		Expression e4 = new Expression("3 * fgo( x )",optMap,'x');
 		System.out.println(e4.f(5));

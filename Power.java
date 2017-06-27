@@ -6,7 +6,7 @@ public class Power extends Operator
 {
 	public Power()
 	{
-		super("^",9,9,2,OperatorGroupMode.SINGLE);
+		super("^",10,9,2,OperatorGroupMode.SINGLE);
 	}
 	public double solve(double[] x)
 	{

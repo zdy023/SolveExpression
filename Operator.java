@@ -31,6 +31,7 @@ public abstract class Operator implements ExpressionItem,Cloneable
 	public abstract Object clone();
 	public final void setStack(ArrayDeque<Double> stack)
 	{
+		//System.out.println("node 19: " + this.operator);
 		this.stack = stack;
 	}
 	public final ArrayDeque<Double> getStack()
@@ -62,10 +63,10 @@ public abstract class Operator implements ExpressionItem,Cloneable
 		for(int i = operandCount-1;i>=0;i--)
 		{
 			y[i] = stack.pop();
-			System.out.println("node 16: " + this.operator + " " + y[i]);
+			//System.out.println("node 16: " + this.operator + " " + y[i]);
 		}
 		stack.push(this.solve(y));
-		System.out.println("node 17: " + this.operator + " " + stack.peek());
+		//System.out.println("node 17: " + this.operator + " " + stack.peek());
 	}
 	public final String toString()
 	{

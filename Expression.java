@@ -57,7 +57,7 @@ public class Expression extends Operator implements Function
 		Pattern opPat = Pattern.compile("(?:" + x + "?[a-z]+)*\\W+"),unknownPat = Pattern.compile(String.valueOf(x));
 		Operator nextOperator,topOperator;
 		String nxtOpt;
-		stack.push(operatorMap.get("$"));
+		stack.push(this.operatorMap.get("$"));
 		double theNum;
 		StringBuilder strSufix = new StringBuilder();
 		sufix = new ArrayList<ExpressionItem>();
@@ -83,11 +83,11 @@ public class Expression extends Operator implements Function
 				//System.out.println("node 11");
 				nxtOpt = s.next(opPat);
 				//System.out.println("node 12");
-				nextOperator = operatorMap.get(nxtOpt);
+				nextOperator = this.operatorMap.get(nxtOpt);
 				//System.out.println("node 13");
 				topOperator = stack.peek();
 				//System.out.println("node 10: " + nxtOpt + " " + topOperator);
-				for(int priority = nextOperator.getInStackPriority();topOperator.getOutStackPriority()>priority;topOperator = stack.peek())
+				for(int priority = nextOperator.getInStackPriority();topOperator.getOutStackPriority()>=priority;topOperator = stack.peek())
 				{
 					if(nxtOpt.equals("#")&&(stack.size()==1))
 						break;
@@ -116,6 +116,7 @@ public class Expression extends Operator implements Function
 		{
 			Map.Entry<String,Operator> ele = it.next();
 			newMap.put(ele.getKey(),(Operator)ele.getValue().clone());
+			//System.out.println("node 20: " + ele.getKey() + " " + ele.getValue());
 		}
 		return newMap;
 	}

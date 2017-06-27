@@ -14,7 +14,7 @@ public class Operand implements ExpressionItem,Comparable<Operand>
 	public void execute(double x)
 	{
 		stack.push(value);
-		System.out.println("node 18");
+		//System.out.println("node 18");
 	}
 	public void setStack(ArrayDeque<Double> stack)
 	{
