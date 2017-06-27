@@ -3,7 +3,7 @@ package xyz.davidChangx.algorithms;
 /**
 *函数接口 Function.
 *<p>一个数学实函数的抽象表示。</p>
-*@version 1.1
+*@version 1.2
 *@author David Chang
 */
 public interface Function

@@ -3,7 +3,7 @@ package xyz.davidChangx.algorithms.equation;
 import xyz.davidChangx.algorithms.Function;
 /**
 *使用弦割法求实函数的零点.
-*@version 1.1
+*@version 1.2
 *@author David Chang
 */
 public final class SecantRoot
@@ -13,7 +13,7 @@ public final class SecantRoot
 	*<p>此方法不保证总能在有限时间内求出期望的数值解。但总体上，该方法应优于二分法求解函数零点。在收敛的情况下，该方法不要求零点一定位于求解区间上，且可以比二分法更快的趋近于零点。</p>
 	*@param a 求解区间的端点a
 	*@param b 求解区间的端点b
-	*@param f xyz.davidChangx.algorithms.Function类型的函数接口，在Java 1.8中可以使用λ表达式作为实参
+	*@param f xyz.davidChangx.algorithms.Function类型的函数接口，在Java 1.8中可以使用λ表达式作为实参，同时可以使用xyz.davidChangx.algorithms.math.Expression作为实参
 	*@see xyz.davidChangx.algorithms.Function
 	*@param accuracy 目标精确度，最终的解x保证|f(x)|&lt;accuracy，因此应保证该参数为正数
 	*@throws ArithmeticException 在求解过程中若出现f(a),f(b)或f(x)缺乏定义的情况，会抛出该错误。对于f(a)=f(b)的情况，不会抛出该错误。
