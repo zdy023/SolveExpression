@@ -155,7 +155,7 @@ public class Expression extends Operator implements Function
 	*/
 	public Object clone()
 	{
-		return new Expression(this.operator,this.inStackPriority,this.outStackPriority,this.infix,this.operatorMap,this.x);
+		return new Expression(this.operator.substring(0,this.operator.length()-1),this.inStackPriority,this.outStackPriority,this.infix,this.operatorMap,this.x);
 	}
 	/**
 	*求表达式的值，之后可调用getValue()方法获得该值.
@@ -206,7 +206,7 @@ public class Expression extends Operator implements Function
 	public double f(double x)
 	{
 		this.solve(x);
-		newesOrNot = false;
+		newestOrNot = false;
 		return this.value;
 	}
 	/**

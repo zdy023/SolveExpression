@@ -152,12 +152,16 @@ public abstract class Operator implements ExpressionItem,Cloneable
 	}
 	/**
 	*判断两运算符是否相等.
-	*<p>由于哈希码的原因，该判断结果不一定可靠。</p>
 	*@param x 另一运算符
-	*@return true - 两运算符哈希码相等 false - 两运算符哈希码不等
+	*@return true - 两运算符完全一致 false - 两运算符不相同
 	*/
 	public final boolean equals(Object x)
 	{
-		return this.hash==((Operator)x).hashCode();
+		if(x instanceof Operator)
+		{
+			Operator y = (Operator)x;
+			return (this.operator.equals(y.toString()))&&(this.hash==y.hashCode());
+		}
+		return false;
 	}
 }
