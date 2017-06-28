@@ -7,7 +7,7 @@ default:operator basic $(classPath)/equation/SecantRoot.class
 triangle := Cosine Sine Tangent
 arcTriangle := $(addprefix Arc,$(triangle))
 hyperbolicTriangle := $(addprefix Hyperbolic,$(triangle))
-operatorClass := $(triangle) $(arcTriangle) $(hyperbolicTriangle) Lg Ln Exponential Plus Minus Module Multiply Divide
+operatorClass := $(triangle) $(arcTriangle) $(hyperbolicTriangle) Lg Ln Exponential Plus Minus Module Multiply Divide Power Head Tail LeftBracket RightBracket
 operator:$(mathPath)/operator/Operator.class
 	javac -d . $(addsuffix .java,$(operatorClass))
 .PHONY:basic
@@ -28,6 +28,20 @@ $(classPath)/Function.class:
 	javac -d . Function.java
 $(mathPath)/operator/OperatorGroupMode.class:
 	javac -d . OperatorGroupMode.java
+.PHONY:all
+all:default Test.class CreateDatabase.class
+	java CreateDatabase
+Test.class:
+	javac -d . Test.java
+CreateDatabase.class:
+	javac -d . CreateDatabase.java
+.PHONY:test
+test:default Test.class CreateDatabase.class
+	java CreateDatabase
+	java Test
+.PHONY:jar
+jar:basic $(classPath)/equation/SecantRoot.class
+	jar -cvf SolveExpression.jar xyz/
 .PHONY:clean
 clean:
 	-rm -r xyz 

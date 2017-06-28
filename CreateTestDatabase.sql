@@ -17,4 +17,4 @@ insert into Operator (operator,operatorClass,inStackPriority,outStackPriority,op
 	('e^(','Exponential',15,1,1),
 	('sinh(','HyperbolicSine',15,1,1),('cosh(','HyperbolicCosine',15,1,1),('tanh','HyperbolicTangent',15,1,1),
 	('arcsin(','ArcSine',15,1,1),('arccos(','ArcCosine',15,1,1),('arctan(','ArcTangent',15,1,1),
-	('ln(','Ln',15,1,1),'lg(','Lg',15,1,1);
+	('ln(','Ln',15,1,1),('lg(','Lg',15,1,1);
