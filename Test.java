@@ -69,32 +69,26 @@ public class Test
 			if(!e.getSQLState().equals("08006"))
 				System.out.println("Closing Error!\n" + e);
 		}
-		//System.out.println("node 6");
-		Expression e1 = new Expression("sin( tan( 3 + 5 * 2 ) )",optMap);
-		e1.solve();
-		boolean test1 = e1.isNewest();
+		Expression e1 = new Expression("sin( tan( 3 + 5 * 2 ) )",optMap); //construct the expression with only literal numbers,without unknown characters
+		e1.solve(); //solve the value of the expression
+		boolean test1 = e1.isNewest(); //predicate if the value is the newest
 		System.out.println(test1);
-		boolean test2 = e1.getValue()==Math.sin(Math.tan(13.));
+		boolean test2 = e1.getValue()==Math.sin(Math.tan(13.)); //check the value
 		System.out.println(test2);
 		boolean test3 = !e1.isNewest();
 		System.out.println(test3);
-		//System.out.println("node 7");
-		Expression e2 = new Expression("3 + ( ( 5 - 2 ) + 3 ^ x ) - x",optMap,'x');
-		//System.out.println("node 5");
-		//System.out.println("node 15: " + e1.getSufix());
-		//System.out.println("node 4");
-		boolean test4 = e2.f(0.)==Test.e2(0.);
+		Expression e2 = new Expression("3 + ( ( 5 - 2 ) + 3 ^ x ) - x",optMap,'x'); //construct an expression with unknown characters which can be considered as a math function,the letter 'x' is the independent variable
+		boolean test4 = e2.f(0.)==Test.e2(0.); //invoke the f() method as functional inferface xyz.davidChangx.algorithms.Function and check the result
 		System.out.println(test4);
 		boolean test5 = !e2.isNewest();
 		System.out.println(test5);
 		e2.solve(5.);
 		boolean test6 = e2.getValue()==Test.e2(5.);
 		System.out.println(test6);
-		Expression e3 = new Expression("fgo",15,1,"( 5 - 3 - 2 ) - ( 2 * x + e^( x ) - ln( x ) ) + ( sin( x + cosh( x ^ 2 - x + 4 ) ) - 2 )",optMap,'x');
+		Expression e3 = new Expression("fgo",15,1,"( 5 - 3 - 2 ) - ( 2 * x + e^( x ) - ln( x ) ) + ( sin( x + cosh( x ^ 2 - x + 4 ) ) - 2 )",optMap,'x'); //contribute a new operator with class Expression,the new operator can be used in the infix expression as math function fgo()
 		System.out.println(e3.getSufix());
-		optMap.put("fgo(",e3);
-		Expression e4 = new Expression("e^( fgo( x ) ) - arctan( x )",optMap,'x');
-		//System.out.println("node 21: " + Test.fgo(5.) + " " + (e3.f(5.)==Test.fgo(5.)));
+		optMap.put("fgo(",e3); //add the new operator to the operator map
+		Expression e4 = new Expression("e^( fgo( x ) ) - arctan( x )",optMap,'x'); //use the updated operator map to contruct an Expression
 		System.out.println(e4.getSufix());
 		boolean test7 = e4.f(5.)==Math.exp(Test.fgo(5.))-Math.atan(5.);
 		System.out.println(test7);

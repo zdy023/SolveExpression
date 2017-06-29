@@ -36,7 +36,7 @@ Test.class:
 CreateDatabase.class:
 	javac -d . CreateDatabase.java
 .PHONY:test
-test:default Test.class CreateDatabase.class
+test:operator basic Test.class CreateDatabase.class
 	java CreateDatabase
 	java Test
 .PHONY:jar
