@@ -1,47 +1,63 @@
-概述
+#概述
 
 SolveExpression是一个可以通过字符串表示的数学表达式构造可以用于程序计算的表达式的API，其中的核心类为xyz.davidChangx.algorithms.math.Expression类。
 
 Expression是一个数学表达式的表示，其内部以后缀表达式，即逆波兰式来存储用于计算的表达式。在程序中可以通过字符串格式的中缀表达式来构造Expression，实现语言与元语言的转换。在Expression内部通过Scanner来扫描输入串，采用默认的分隔符，因此在不同的运算符、操作数之间都应通过若干个空格或'\t'等空白字符隔开。Expression类支持通过约定的字母表示自变量，进而构造可以作为数学函数的表达式。约定的未知量的字母通过参数传入构造函数。
 
-Expression采用了可扩展的实现。Expression类内部没有提供任何运算符的实现。所有的运算符可通过继承xyz.davidChangx.algorithms.math.operator.Operator类构造，因此用户可以自行扩展，得到自己需要的运算。在API中提供了加、减、乘、除、求模、乘方、指数、自然对数、常用对数、三角函数、双曲函数、反三角函数等的简易实现。用户也可以根据自己的需求选择重新实现其中的运算。在构造Expression类时，需要HashMap<String,Operator>类型的运算符库作为参数。其中键为运算符在表达式中使用的数学格式的字符串，值为运算符的类。
+Expression采用了可扩展的实现。Expression类内部没有提供任何运算符的实现。所有的运算符可通过继承xyz.davidChangx.algorithms.math.operator.Operator类构造，因此用户可以自行扩展，得到自己需要的运算。在API中提供了加、减、乘、除、求模、乘方、指数、自然对数、常用对数、三角函数、双曲函数、反三角函数等的简易实现。用户也可以根据自己的需求选择重新实现其中的运算。在构造Expression类时，需要HashMap&lt;String,Operator&gt;类型的运算符库作为参数。其中键为运算符在表达式中使用的数学格式的字符串，值为运算符的类。
 
 Expression类提供了两个不带返回值的solve方法：
-	public void solve();
-	public void solve(double);
+```
+public void solve();
+public void solve(double);
+```
 用以计算表达式的值。对于不含未知字母的表达式，两个方法作用相同；对于含未知字母的表达式，solve()方法等同于solve(0.)。计算后的值可以通过getValue()方法获得。
-	public double getValue();
+```
+public double getValue();
+```
 方法会返回上次solve()方法求得的值，而不会计算新值，因此若需要获得新的值，应当在调用getValue()之前调用以上某个solve()方法重新计算。这对于不含未知量，只含有常数的表达式并不重要。此外，可以通过
-	public boolean isNewest();
+```
+public boolean isNewest();
+```
 方法，判断现在的值是不是最新的（刚刚计算出的）。
 
 Expression类实现了xyz.davidChangx.algorithms.Function接口。Function接口是一个函数接口，其中仅含一个抽象方法
-	public double f(double);
+```
+public double f(double);
+```
 是一个数学函数的抽象表示。可以通过Expression的f()方法立即获得某个函数值。事实上，
-	//exp is an instance of Expression,x is a double variable
-	double a = exp.f(x);
+```
+//exp is an instance of Expression,x is a double variable
+double a = exp.f(x);
+```
 等同于
-	ex.solve(x);
-	double a = exp.getValue();
+```
+ex.solve(x);
+double a = exp.getValue();
+```
 
 Expression类继承了Operator类，这提供了动态扩展运算符库的可能，即通过Expression类，在运行时向运算符库中添加新的运算符。
 
 Operator类中比较重要的是
-	public double solve(double[]);
+```
+public double solve(double[]);
+```
 方法，这个方法提供了运算符的具体实现。要注意在Expression类中，该方法与之前提到的两个solve()方法不同。该方法为继承自Operator类的方法，带有返回值，以操作数的数组为参数。该方法会返回运算的立即结果，而不会将运算结果存储，即不能通过getValue()方法获得该方法的运算结果。而且该方法不会影响isNewest()的标识。
 
 API中还包含了xyz.davidChangx.algorithms.equation.SecantRoot类，该类包含一个静态方法：
-	public static double solve(double,double,Function,double);
+```
+public static double solve(double,double,Function,double);
+```
 用于通过弦截法获得某函数的零点。它接受Function作为参数，因此可以接受使用λ表达式或Expression来作为参数。
 
 Expression的使用实例，可参考提供的Test.java
 
 
-运算符设置指南
+#运算符设置指南
 
 运算符存在优先级，优先级包括入栈优先级与出栈优先级，决定在由中缀表达式构造后缀表达式时运算符的进出栈顺序。优先级的取值范围是[0,16)。
 
-1.在数学表达式中操作数书写在运算符两侧的二元运算符（如：+,-,*,/）或写在运算符前的一元运算符（如：!（阶乘））
+##在数学表达式中操作数书写在运算符两侧的二元运算符（如：+,-,*,/）或写在运算符前的一元运算符（如：!（阶乘））
 
 这类运算符，其出入栈优先级一般相等或相差一，且一般同其在数学表达式中的运算优先级成正相关。对于这类运算符，当同运算优先级的的运算符连续出现（如：3-5-8）时，相邻运算符的进出栈顺序可能会对生成的后缀表达式的运算结果产生影响：
 
@@ -53,7 +69,7 @@ Expression的使用实例，可参考提供的Test.java
 
 对于所有运算优先级相同的二元运算符，结合性应当一致。
 
-2.对于函数形式的运算符（如：sin(x)）
+##对于函数形式的运算符（如：sin(x)）
 
 在本API的处理中，将形如“f(x)”的由两部分构成的运算符作为两个运算符来考虑，即“f(”与“)”。
 
@@ -61,11 +77,11 @@ Expression的使用实例，可参考提供的Test.java
 
 对于“)”，称为关闭运算符的运算符，或下面简称关闭运算符（运算符模式为OperatorGroupMode.CLOSING_ONE）。在API中关闭运算符仅“)”一个，事实上，一般来说，在一个运算符库中关闭运算符也仅需要一个。也可以使用其他习惯的关闭运算符形式如“]”“}”等。这类运算符在对应的需要关闭的运算符出栈后即被丢弃，不会真正进入运算符栈或追加到后缀表达式中，因此其出栈优先级无意义。需要关闭的运算符应当保证其入栈优先级小于任何其他实际运算符，因此建议入栈优先级取0。
 
-3.两个特殊运算符“$”“#”
+##两个特殊运算符“$”“#”
 
 这两个运算符是特殊的运算符，在Expression类对中缀表达式进行预处理时，会在表达式开头与结尾分别添加“$”（Head）与“#”（Tail），作为表达式开始与结束的标志。任何运算符库应当包含这两个运算符，或采用API中的xyz.davidChangx.algorithms.math.operator.Head与xyz.davidChangx.algorithms.math.operator.Tail。当中缀表达式处理到结尾时，应使运算符栈中的表达式全部出栈，直至栈中剩下最后一个运算符，即“$”，故“#”的入栈优先级应保证最小，建议取0。“$”的进出栈优先级均无实际意义，“#”的出栈优先级无意义。
 
-4.API中包含的全部运算符：
+##API中包含的全部运算符：
 
 +（加法） -（减法） *（乘法） /（除法） mod（求模） ^（乘方）
 
@@ -76,30 +92,42 @@ sin(（正弦） cos(（余弦） tan(（正切） arcsin(（反正弦） arccos
 $（Head） #（Tail）
 
 
-安装指南
+#安装指南
 
-1.需要环境：jdk1.8及以上。
+1. 需要环境：jdk1.8及以上。
 
-2.源代码位置：https://github.com/zdy023/SolveExpression
+2. 源代码位置：<https://github.com/zdy023/SolveExpression>
 
-3.安装：
+3. 安装：
 
 将源代码放置在希望的文件夹，进入该文件夹，保证所有文件均存在且完整，输入命令
-	make
+```
+make
+```
 或
-	make default
+```
+make default
+```
 
 若欲进行测试，输入
-	make test
+```
+make test
+```
 
 若只需要核心类Expression,Function,Operator及其他的若干必备类，而不需要提供的默认运算符实现及SecantRoot类以及测试程序，使用命令：
-	make basic
+```
+make basic
+```
 
 若希望获得全部程序，包括测试用数据库（JavaDB），使用：
-	make all
+```
+make all
+```
 
 若希望打包已生成的类文件，运行
-	make jar
+```
+make jar
+```
 得到jar包。
 
-4.若欲得到更多帮助，或对API有任何建议，请联系zdy004007@126.com
+4. 若欲得到更多帮助，或对API有任何建议，请联系[zdy004007@126.com](mailto://zdy004007@126.com)
