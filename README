@@ -65,6 +65,16 @@ Expression的使用实例，可参考API中的Test.java
 
 这两个运算符是特殊的运算符，在Expression类对中缀表达式进行预处理时，会在表达式开头与结尾分别添加“$”（Head）与“#”（Tail），作为表达式开始与结束的标志。任何运算符库应当包含这两个运算符，或采用API中的xyz.davidChangx.algorithms.math.operator.Head与xyz.davidChangx.algorithms.math.operator.Tail。当中缀表达式处理到结尾时，应使运算符栈中的表达式全部出栈，直至栈中剩下最后一个运算符，即“$”，故“#”的入栈优先级应保证最小，建议取0。“$”的进出栈优先级均无实际意义，“#”的出栈优先级无意义。
 
+4.API中包含的全部运算符：
+
++（加法） -（减法） *（乘法） /（除法） mod（求模） ^（乘方）
+
+sin(（正弦） cos(（余弦） tan(（正切） arcsin(（反正弦） arccos(（反余弦） arctan(（反正切） sinh(（双曲正弦） cosh(（双曲余弦） tanh(（双曲正切） e^(（指数） ln(（自然对数） lg(（常用对数） (（左括号）
+
+)（右括号）
+
+$（Head） #（Tail）
+
 
 安装指南
 
