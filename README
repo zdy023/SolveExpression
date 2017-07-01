@@ -34,7 +34,7 @@ API中还包含了xyz.davidChangx.algorithms.equation.SecantRoot类，该类包�
 	public static double solve(double,double,Function,double);
 用于通过弦截法获得某函数的零点。它接受Function作为参数，因此可以接受使用λ表达式或Expression来作为参数。
 
-Expression的使用实例，可参考API中的Test.java
+Expression的使用实例，可参考提供的Test.java
 
 
 运算符设置指南
@@ -102,4 +102,4 @@ $（Head） #（Tail）
 	make jar
 得到jar包。
 
-4.若欲得到更多帮助，或对API由任何建议，请联系zdy004007@126.com
+4.若欲得到更多帮助，或对API有任何建议，请联系zdy004007@126.com
