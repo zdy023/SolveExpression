@@ -1,7 +1,7 @@
 //ArcCosine.java
-package xyz.davidChangx.algorithms.math.operator;
-import xyz.davidChangx.algorithms.math.operator.Operator;
-import xyz.davidChangx.algorithms.math.operator.OperatorGroupMode;
+package xyz.davidchangx.algorithms.math.operator;
+import xyz.davidchangx.algorithms.math.operator.Operator;
+import xyz.davidchangx.algorithms.math.operator.OperatorGroupMode;
 /**
 *执行反余弦运算
 *@author david Chang

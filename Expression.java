@@ -1,15 +1,15 @@
-package xyz.davidChangx.algorithms.math;
+package xyz.davidchangx.algorithms.math;
 import java.util.ArrayDeque;
 import java.util.Scanner;
-import xyz.davidChangx.algorithms.Function;
+import xyz.davidchangx.algorithms.Function;
 import java.util.HashMap;
-import xyz.davidChangx.algorithms.math.operator.Operator;
-import xyz.davidChangx.algorithms.math.Operand;
-import xyz.davidChangx.algorithms.math.Unknown;
-import xyz.davidChangx.algorithms.math.ExpressionItem;
+import xyz.davidchangx.algorithms.math.operator.Operator;
+import xyz.davidchangx.algorithms.math.Operand;
+import xyz.davidchangx.algorithms.math.Unknown;
+import xyz.davidchangx.algorithms.math.ExpressionItem;
 import java.util.regex.Pattern;
 import java.util.ArrayList;
-import xyz.davidChangx.algorithms.math.operator.OperatorGroupMode;
+import xyz.davidchangx.algorithms.math.operator.OperatorGroupMode;
 import java.util.ListIterator;
 import java.util.Set;
 import java.util.Iterator;
@@ -19,7 +19,7 @@ import java.util.Map;
 *用于存储一个后缀表达式，由中缀表达式构造后缀表达式,并求值.
 *<p>以该类为核心的表达式API是可扩展的。该类内部未提供具体运算的实现，具体的运算可由Operator的子类动态扩展。</p>
 *<p>该类同样被实现为Operator的子类，故可以由已给出的运算构造复杂的运算符。在数学表达式中，新运算符可以函数的形式书写。新操作符为一元运算符。</p>
-*<p>该类实现了接口xyz.davidChangx.algorithms.Function接口，故可以在程序中作为数学函数调用的。</p>
+*<p>该类实现了接口xyz.davidchangx.algorithms.Function接口，故可以在程序中作为数学函数调用的。</p>
 *@author David Chang
 *@version v1.2
 */

@@ -1,5 +1,5 @@
 //OperatorGroupMode.java
-package xyz.davidChangx.algorithms.math.operator;
+package xyz.davidchangx.algorithms.math.operator;
 /**
 *操作符的某种模式.
 *author david Chang

@@ -1,5 +1,5 @@
 //Function.java
-package xyz.davidChangx.algorithms;
+package xyz.davidchangx.algorithms;
 /**
 *函数接口 Function.
 *<p>一个数学实函数的抽象表示。</p>

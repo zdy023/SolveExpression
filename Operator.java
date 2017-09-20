@@ -1,8 +1,8 @@
 //Operator.java
-package xyz.davidChangx.algorithms.math.operator;
-import xyz.davidChangx.algorithms.math.ExpressionItem;
+package xyz.davidchangx.algorithms.math.operator;
+import xyz.davidchangx.algorithms.math.ExpressionItem;
 import java.util.ArrayDeque;
-import xyz.davidChangx.algorithms.math.operator.OperatorGroupMode;
+import xyz.davidchangx.algorithms.math.operator.OperatorGroupMode;
 /**
 *运算符的抽象超类.
 *<p>该类是所有运算符的超类，包括Expression。该类实现了ExpressionItem接口，故可以作为后缀表达式的表达式项。</p>

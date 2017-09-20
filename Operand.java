@@ -1,6 +1,6 @@
 //Operand.java
-package xyz.davidChangx.algorithms.math;
-import xyz.davidChangx.algorithms.math.ExpressionItem;
+package xyz.davidchangx.algorithms.math;
+import xyz.davidchangx.algorithms.math.ExpressionItem;
 import java.util.ArrayDeque;
 /**
 *操作数类，可以作为后缀表达式的常数项.

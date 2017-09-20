@@ -4,3 +4,4 @@ operator/*
 *.log
 *.class
 *.jar
+tags

@@ -1,7 +1,7 @@
 //Power.java
-package xyz.davidChangx.algorithms.math.operator;
-import xyz.davidChangx.algorithms.math.operator.Operator;
-import xyz.davidChangx.algorithms.math.operator.OperatorGroupMode;
+package xyz.davidchangx.algorithms.math.operator;
+import xyz.davidchangx.algorithms.math.operator.Operator;
+import xyz.davidchangx.algorithms.math.operator.OperatorGroupMode;
 /**
 *执行乘方运算.
 *<p>乘方运算为右结合运算。</p>

@@ -1,6 +1,6 @@
 //Unknown.java
-package xyz.davidChangx.algorithms.math;
-import xyz.davidChangx.algorithms.math.ExpressionItem;
+package xyz.davidchangx.algorithms.math;
+import xyz.davidchangx.algorithms.math.ExpressionItem;
 import java.util.ArrayDeque;
 /**
 *后缀表达式中的字母项.

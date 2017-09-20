@@ -1,5 +1,5 @@
 //Test.java
-import xyz.davidChangx.algorithms.math.operator.Operator;
+import xyz.davidchangx.algorithms.math.operator.Operator;
 import org.apache.derby.jdbc.EmbeddedDriver;
 import java.sql.DriverManager;
 import java.sql.Connection;
@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.sql.SQLException;
-import xyz.davidChangx.algorithms.math.Expression;
+import xyz.davidchangx.algorithms.math.Expression;
 public class Test
 {
 	public static void main(String[] args)
@@ -32,7 +32,7 @@ public class Test
 			for(;rs.next();)
 			{
 				String operator = rs.getString("operator"),operatorName = rs.getString("operatorClass");
-				Operator opt = (Operator)Class.forName("xyz.davidChangx.algorithms.math.operator." + operatorName).newInstance();
+				Operator opt = (Operator)Class.forName("xyz.davidchangx.algorithms.math.operator." + operatorName).newInstance();
 				optMap.put(operator,opt);
 			}
 			//System.out.println("node 3");
@@ -78,7 +78,7 @@ public class Test
 		boolean test3 = !e1.isNewest();
 		System.out.println(test3);
 		Expression e2 = new Expression("3 + ( ( 5 - 2 ) + 3 ^ x ) - x",optMap,'x'); //construct an expression with unknown characters which can be considered as a math function,the letter 'x' is the independent variable
-		boolean test4 = e2.f(0.)==Test.e2(0.); //invoke the f() method as functional inferface xyz.davidChangx.algorithms.Function and check the result
+		boolean test4 = e2.f(0.)==Test.e2(0.); //invoke the f() method as functional inferface xyz.davidchangx.algorithms.Function and check the result
 		System.out.println(test4);
 		boolean test5 = !e2.isNewest();
 		System.out.println(test5);

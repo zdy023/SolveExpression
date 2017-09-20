@@ -1,7 +1,7 @@
 //Module.java
-package xyz.davidChangx.algorithms.math.operator;
-import xyz.davidChangx.algorithms.math.operator.Operator;
-import xyz.davidChangx.algorithms.math.operator.OperatorGroupMode;
+package xyz.davidchangx.algorithms.math.operator;
+import xyz.davidchangx.algorithms.math.operator.Operator;
+import xyz.davidchangx.algorithms.math.operator.OperatorGroupMode;
 /**
 *执行取模运算运算.
 *<p>应当留意，取模运算a mod b = a-b*floor(a/b),最终结果的符号将与b一致。</p>

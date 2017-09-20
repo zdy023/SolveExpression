@@ -1,7 +1,7 @@
 //RightBracket.java
-package xyz.davidChangx.algorithms.math.operator;
-import xyz.davidChangx.algorithms.math.operator.Operator;
-import xyz.davidChangx.algorithms.math.operator.OperatorGroupMode;
+package xyz.davidchangx.algorithms.math.operator;
+import xyz.davidchangx.algorithms.math.operator.Operator;
+import xyz.davidchangx.algorithms.math.operator.OperatorGroupMode;
 /**
 *标示右括号.
 *<p>右括号作为关闭其他带有左括号的运算符的运算符，不会被写入后缀表达式。</p>

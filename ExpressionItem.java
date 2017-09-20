@@ -1,5 +1,5 @@
 //ExpressionItem.java
-package xyz.davidChangx.algorithms.math;
+package xyz.davidchangx.algorithms.math;
 /**
 *表达式项.
 *<p>作为后缀表达式中的项的抽象接口。它可能是常数、未知数或运算符</p>
